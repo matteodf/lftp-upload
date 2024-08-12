@@ -1,0 +1,51 @@
+name: "lftp-upload"
+author: "Matteo De Filippis <hello@matteodefilippis.com>"
+description: "A GitHub Action for uploading files to a standard FTP server through Docker and lftp"
+inputs:
+  host:
+    description: "FTP host"
+    required: true
+  username:
+    description: "FTP username"
+    required: true
+  password:
+    description: "FTP password"
+    required: true
+  forceSsl:
+    description: "Force SSL encryption"
+    required: false
+    default: "false"
+  localDir:
+    description: "Local directory"
+    required: false
+    default: "."
+  remoteDir:
+    description: "Remote directory"
+    required: false
+    default: "."
+  timeout:
+    description: "Connection timeout"
+    required: false
+    default: "60"
+  retries:
+    description: "Max number of retries"
+    required: false
+    default: "20"
+  multiplier:
+    description: "Retry multiplier"
+    required: false
+    default: "1.5"
+  baseInterval:
+    description: "Base retry interval"
+    required: false
+    default: "5"
+  pConn:
+    description: "Number of parallel connections"
+    required: false
+    default: "5"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+branding:
+  color: "white"
+  icon: "upload-cloud"
