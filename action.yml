@@ -43,6 +43,10 @@ inputs:
     description: "Number of parallel connections"
     required: false
     default: "5"
+  delete:
+    description: "Delete files not present at the source"
+    required: false
+    default: "false"
 runs:
   using: "docker"
   image: "Dockerfile"
