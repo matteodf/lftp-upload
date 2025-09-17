@@ -43,10 +43,10 @@ inputs:
     description: "Number of parallel connections"
     required: false
     default: "5"
-  delete:
-    description: "Delete files not present at the source"
+  extraFlags:
+    description: "Additional flags to pass to the lftp mirror command"
     required: false
-    default: "false"
+    default: ""
 runs:
   using: "docker"
   image: "Dockerfile"

@@ -30,27 +30,27 @@ jobs:
             multiplier: "2.0"
             baseInterval: "10"
             pConn: "10"
-            delete: "true"
+            extraFlags: "--delete-first"
 ```
 
 Note: you need to set secrets in the repository settings. See the [documentation](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) for more information.
 
 ## Inputs
 
-| Name         | Description                      | Required | Default |
-| ------------ | -------------------------------- | -------- | ------- |
-| host         | FTP host address                 | true     | -       |
-| username     | FTP username                     | true     | -       |
-| password     | FTP password                     | true     | -       |
-| forceSsl     | Force SSL                        | false    | false   |
-| localDir     | Local directory to upload from   | false    | .       |
-| remoteDir    | Remote directory to upload to    | false    | .       |
-| timeout      | Connection timeout in seconds    | false    | 60      |
-| retries      | Maximum number of retry attempts | false    | 20      |
-| multiplier   | Multiplier for retry intervals   | false    | 1.5     |
-| baseInterval | Base retry interval in seconds   | false    | 5       |
-| pConn        | Number of parallel connections   | false    | 5       |
-| delete       | Delete files not present at source | false | false   |
+| Name         | Description                              | Required | Default |
+| ------------ | ---------------------------------------- | -------- | ------- |
+| host         | FTP host address                         | true     | -       |
+| username     | FTP username                             | true     | -       |
+| password     | FTP password                             | true     | -       |
+| forceSsl     | Force SSL                                | false    | false   |
+| localDir     | Local directory to upload from           | false    | .       |
+| remoteDir    | Remote directory to upload to            | false    | .       |
+| timeout      | Connection timeout in seconds            | false    | 60      |
+| retries      | Maximum number of retry attempts         | false    | 20      |
+| multiplier   | Multiplier for retry intervals           | false    | 1.5     |
+| baseInterval | Base retry interval in seconds           | false    | 5       |
+| pConn        | Number of parallel connections           | false    | 5       |
+| extraFlags   | Additional flags for lftp mirror command | false    | ""      |
 
 For more information on each input and how they are used, see the [lftp documentation](https://lftp.yar.ru/lftp-man.html).
 
@@ -86,7 +86,7 @@ lftp ${INPUT_HOST} -u ${INPUT_USERNAME},${INPUT_PASSWORD} -e "
   set ftp:ssl-force $INPUT_FORCESSL;
   set sftp:auto-confirm yes;
   set ssl:verify-certificate $INPUT_FORCESSL;
-  mirror -v -P $INPUT_PCONN -R -n -L -x ^\.git/$ $INPUT_LOCALDIR $INPUT_REMOTEDIR;
+  mirror $MIRROR_FLAGS $INPUT_LOCALDIR $INPUT_REMOTEDIR;
   quit
 "
 ```
